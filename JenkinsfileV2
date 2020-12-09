@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('git-checkout') {
             steps{
-                git branch: '*/$BRANCH', url: 'https://github.com/brent2000/IaC-project.git'
+                git branch: 'main', url: 'https://github.com/brent2000/IaC-project.git'
             }
         }
         stage('build') {
