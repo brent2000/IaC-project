@@ -13,8 +13,7 @@ pipeline {
         }
         stage('deploy') {
             steps{
-                azureWebAppPublish azureCredentialsId: env.AZURE_CRED_ID,
-                resourceGroup: env.RES_GROUP, appName: env.WEB_APP, filePath: ""
+                azureWebAppPublish appName: 'IacTestPlatform', azureCredentialsId: 'azure-cli-2020-12-09-14-57-52', dockerImageName: '', dockerImageTag: '', dockerRegistryEndpoint: [], filePath: '', publishType: 'file', resourceGroup: 'IaC', slotName: '', sourceDirectory: '', targetDirectory: ''
             }
         }
     }
