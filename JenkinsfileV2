@@ -13,7 +13,7 @@ pipeline {
         }
         stage('deploy') {
             steps{
-                azureWebAppPublish appName: 'IacTestPlatform', azureCredentialsId: 'azure-cli-2020-12-09-14-57-52', dockerImageName: '', dockerImageTag: '', dockerRegistryEndpoint: [], filePath: '', publishType: 'file', resourceGroup: 'IaC', slotName: '', sourceDirectory: '', targetDirectory: ''
+                azureWebAppPublish appName: 'IacTestPlatform', azureCredentialsId: 'azure-cli-2020-12-09-14-57-52', publishType: 'file', resourceGroup: 'IaC';
             }
         }
     }
