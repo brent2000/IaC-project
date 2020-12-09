@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages{
+        stage('git-checkout') {
+            steps{
+                git branch: 'master', url: 'https://github.com/brent2000/IaC-project.git';
+            }
+        }
+        stage('build') {
+            steps{
+                echo "build";
+            }
+        }
+        stage('deploy') {
+            steps{
+                azureWebAppPublish azureCredentialsId: env.AZURE_CRED_ID,
+                resourceGroup: env.RES_GROUP, appName: env.WEB_APP, filePath: ""
+            }
+        }
+    }
+}
