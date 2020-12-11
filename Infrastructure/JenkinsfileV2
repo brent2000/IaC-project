@@ -13,7 +13,7 @@ pipeline {
         }
         stage('deploy') {
             steps{
-                azureWebAppPublish appName: 'IacTestPlatform', azureCredentialsId: '9fb7fc3d-1a10-4f31-941a-a35997b83a29', publishType: 'file', filePath: "**/*.*", resourceGroup: 'IaC';
+                azureWebAppPublish appName: 'IacTestPlatform', azureCredentialsId: '9fb7fc3d-1a10-4f31-941a-a35997b83a29', publishType: 'file', filePath: "**/*.*", resourceGroup: 'IaC' sourceDirectory: 'Application';
             }
         }
     }
