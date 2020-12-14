@@ -1,0 +1,59 @@
+##BASH azure##
+
+##Opstellen automatische installatie jenkins##
+
+code cloud-init-jenkins.txt
+
+#cloud-config
+package_upgrade: true
+runcmd:
+  - apt install openjdk-8-jdk -y
+  - wget -qO - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+  - sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+  - apt-get update && apt-get install jenkins -y
+  - service jenkins restart
+
+##Azure CLI##
+
+##Aanmaken resource-group##
+
+az group create \
+--name JenkinsIaCRG-rg \
+--location westeurope
+
+##Aanmaken VM met UbuntuLTS en Jenkins##
+
+az vm create \
+--resource-group JenkinsIaCRG-rg \
+--name JenkinsIaCVM-vm \
+--image UbuntuLTS \
+--admin-username "azureuser" \
+--generate-ssh-keys \
+--custom-data cloud-init-jenkins.txt
+
+##Poort 8080 openzetten voor Jenkins##
+
+az vm open-port \
+--resource-group JenkinsIaCRG-rg \
+--name JenkinsIaCVM-vm  \
+--port 8080 --priority 1010
+
+##Publiek IP address opvragen van VM##
+
+az vm show \
+--resource-group JenkinsIaCRG-rg \
+--name JenkinsIaCVM-vm -d \
+--query [publicIps] \
+--output tsv
+
+##OUTPUT = public IP address VM##
+ 
+##SSH naar VM##
+
+ssh auzureuser@[publicIPadress)
+
+##Opvragen admin wachtwoord Jenkins##
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+##OUTPUT = adlin ww jenkins##
